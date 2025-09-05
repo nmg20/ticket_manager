@@ -1,73 +1,122 @@
-Resumen general del proyecto - Prototipo de lectura de facturas y asignación de perfiles
+# Ticket Manager
 
-1. Progreso hasta ahora:
+## Descripción del proyecto
 
-- Pantalla principal (Screen Scan)
-  - Lista de artículos (ArticleList) -> cada artículo es un componente (ArticleItem).
-  - Al pulsar un artículo -> abre un overlay (AssignProfilesOverlay) para asignar perfiles.
+`Ticket Manager` es un sistema frontend en React que permite visualizar artículos de un supermercado, gestionar perfiles de usuarios y asignarlos a cada artículo mediante un modal interactivo. El proyecto está construido con:
 
-- Overlay de selección de perfiles
-  - Componente AssignProfilesOverlay con lista (ProfileList) de ProfileItem con variantes (Selected / Unselected).
-  - Botones Aceptar y Cancelar, y clic fuera para cerrar overlay.
-  - Cada overlay mantiene su propia instancia de la lista para evitar que se mezclen selecciones entre artículos.
+- React + TypeScript
+- Tailwind CSS para estilos
+- Vite como herramienta de desarrollo
 
-- Interacciones simuladas en Figma
-  - Tocar perfil -> toggle Selected / Unselected.
-  - Aceptar -> cerrar overlay y reflejar visualmente asignación en el artículo.
-  - Cancelar / click fuera -> cerrar overlay sin guardar cambios.
+Actualmente el proyecto permite:
 
-2. Exportación del diseño:
+- Mostrar un listado de artículos con nombre y precio.
+- Abrir un modal al clicar sobre un artículo.
+- Seleccionar perfiles de usuario para asignarlos al artículo.
+- Reseteo automático de la selección de perfiles por cada artículo.
+- Visualización del total de los artículos seleccionados.
+- Mantener la estética inspirada en el diseño de Figma, con bordes redondeados y colores definidos.
 
-- Elementos gráficos estáticos: iconos, botones, logos -> exportar como SVG o PNG.
-- Componentes dinámicos (listas, overlays, items) -> no exportar como imagen; mantener como referencia visual para React.
-- Documentar tamaños, colores, tipografía, padding usando Figma Inspect para frontend.
-- Mantener Figma abierto como guía para consistencia de UI.
+## Estructura del proyecto
 
-3. Clases / componentes claros para modelar:
+```
+ticket_manager/
+├─ frontend/
+│  ├─ src/
+│  │  ├─ components/
+│  │  │  ├─ ArticleItem.tsx
+│  │  │  ├─ ArticleItemList.tsx
+│  │  │  └─ ArticleModal.tsx
+│  │  ├─ screens/
+│  │  │  └─ ScreenScan.tsx
+│  │  ├─ types.ts
+│  │  ├─ App.tsx
+│  │  └─ main.tsx
+│  ├─ index.css
+│  └─ vite.config.ts
+├─ package.json
+├─ tailwind.config.js
+└─ postcss.config.js
+```
 
-Frontend (React):
-- ArticleItem: Muestra información de un artículo; variantes NoAssigned / WithAssigned.
-- ArticleList: Contenedor vertical que instancia ArticleItem según datos.
-- ProfileItem: Componente de perfil con variantes Selected / Unselected.
-- ProfileList: Contenedor vertical de ProfileItem, dinámico según usuarios.
-- AssignProfilesOverlay: Modal que contiene ProfileList y botones Aceptar/Cancelar; instancia por artículo.
+## Funcionalidades implementadas
 
-Backend (FastAPI):
-- GET /articles: Devuelve lista de artículos.
-- GET /profiles: Devuelve lista de perfiles.
-- POST /assignments: Recibe articleId y lista de profileIds asignados.
-- Opcional GET /assignments/{articleId}: Devuelve asignaciones actuales.
+1. **Pantalla principal**
+   - Título, fecha y total visibles.
+   - Lista de artículos en un contenedor con bordes redondeados y colores.
+   
+2. **Artículos**
+   - Cada artículo se muestra como un rectángulo con nombre y precio.
+   - Al hacer click, se abre un modal para asignar perfiles.
 
-4. Unir frontend y backend:
+3. **Modal de asignación**
+   - Fondo semi-transparente para resaltar el modal.
+   - Lista de perfiles que se pueden seleccionar o deseleccionar.
+   - Botón de cerrar y botón de confirmar selección.
+   - Reseteo de perfiles seleccionados por cada artículo.
 
-- Fetch inicial de datos:
-  - Al cargar Screen_Scan, hacer GET /articles y GET /profiles para poblar ArticleList y ProfileList.
+## Tecnologías y dependencias
 
-- Abrir overlay para un artículo:
-  - Pasar articleId al overlay.
-  - Inicializar ProfileList según asignaciones actuales del artículo.
+- **React 18 + TypeScript**
+- **Tailwind CSS** (con PostCSS)
+- **Vite** como bundler
+- Uso de `useState` para manejar la apertura de modal y selección de perfiles.
 
-- Guardar asignaciones:
-  - Botón Aceptar -> POST /assignments con articleId y profileIds seleccionados.
-  - Actualizar estado de ArticleItem para reflejar perfiles asignados.
+## Cómo ejecutar el proyecto
 
-- Cancelar / click fuera:
-  - Cierra overlay sin enviar datos.
+1. Clonar el repositorio:
 
-- Estado en React:
-  - Mantener articles y profiles en useState o useReducer.
-  - Cada overlay trabaja sobre una copia de los datos para no afectar otros artículos hasta aceptar.
+```bash
+git clone https://github.com/nmg20/ticket_manager.git
+cd ticket_manager/frontend
+```
 
-5. Concepto general:
+2. Instalar dependencias:
 
-- Figma: prototipo visual modular y dinámico.
-- React: recrea los componentes dinámicos, estados y listas.
-- FastAPI: backend que sirve datos de artículos, perfiles y guarda asignaciones.
-- Integración: fetch de datos para poblar listas, POST para guardar asignaciones, estado reactivo para reflejar cambios en la UI.
+```bash
+npm install
+```
 
-6. Recomendación final:
+3. Ejecutar el servidor de desarrollo:
 
-- Mantener todos los componentes (artículos, listas, overlays, items de perfil) separados y en Assets.
-- Cada overlay/lista debe estar limpia al abrir para un artículo nuevo.
-- Documentar tamaños, colores, tipografía y paddings para facilitar la integración con el frontend.
-- Mapear cada componente Figma a un componente React antes de conectar con el backend.
+```bash
+npm run dev
+```
+
+4. Abrir la aplicación en el navegador:
+
+```
+http://localhost:5173/
+```
+
+## Próximos pasos / Backend
+
+Para comenzar la parte backend se recomienda:
+
+1. **Diseñar la API**
+   - Endpoints para obtener artículos y perfiles.
+   - Endpoints para asignar perfiles a artículos.
+   - Endpoints para calcular total o generar tickets.
+
+2. **Elegir tecnología**
+   - Node.js + Express o FastAPI (Python) para prototipado rápido.
+   - Base de datos: SQLite para pruebas iniciales, PostgreSQL o MySQL para producción.
+
+3. **Conectar frontend con backend**
+   - Usar `fetch` o `axios` desde React para consumir la API.
+   - Reemplazar los datos estáticos actuales (`articles` y `profiles`) por datos provenientes de la API.
+
+4. **Persistencia de datos**
+   - Guardar las asignaciones de perfiles por artículo en la base de datos.
+   - Gestionar actualizaciones y eliminaciones.
+
+5. **Autenticación y roles (opcional)**
+   - Si se quiere un entorno multiusuario, añadir login y control de permisos.
+
+6. **Integración futura**
+   - Añadir notificaciones o confirmaciones visuales.
+   - Mejorar la estética con animaciones CSS o librerías de UI como Framer Motion o Radix.
+
+## Conclusión
+
+Actualmente el proyecto es un frontend funcional que refleja el diseño de Figma y soporta la lógica básica de selección y asignación de perfiles a artículos. La siguiente etapa natural es implementar el backend para persistir datos, hacer la aplicación dinámica y preparar la base para un sistema completo de gestión de tickets y perfiles.
