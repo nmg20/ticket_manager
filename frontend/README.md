@@ -1,12 +1,35 @@
-# React + Vite
+# Supermarket Placeholder - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el **frontend del proyecto Supermarket Placeholder**, construido con **React + TypeScript + Vite** y estilizado con **TailwindCSS**.  
+Su propósito es mostrar artículos en tarjetas, permitir la asignación de perfiles mediante un modal y representar una pantalla de compra con título, fecha y total.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Estado actual
 
-## Expanding the ESLint configuration
+- **Framework**: React + TypeScript + Vite.
+- **Estilos**: TailwindCSS.
+- **Componentes principales**:
+  - **ArticleItem**: tarjeta rectangular de artículo con nombre y precio.
+  - **ArticleItemList**: grid de artículos que permite seleccionar uno.
+  - **ArticleModal**: modal para asignar perfiles a un artículo con opciones de selección y confirmación.
+  - **ScreenScan**: pantalla principal con título, fecha, lista de artículos y cálculo del total.
+- **Funcionalidad destacada**:
+  - Los artículos se renderizan en tarjetas con bordes redondeados.
+  - Al pulsar un artículo se abre un modal superpuesto.
+  - El modal permite seleccionar varios perfiles, confirmarlos o cerrar.
+  - La selección de perfiles se resetea cada vez que se abre para un artículo nuevo.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Instalación y ejecución
+
+### Requisitos previos
+- Node.js (v18 o superior recomendado)
+- npm o yarn
+
+### Pasos
+```bash
+cd frontend
+npm install
+npm run dev

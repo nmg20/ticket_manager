@@ -1,12 +1,8 @@
-import React from 'react';
-import ScreenScan from './screens/ScreenScan.tsx';
+import React from "react";
+import ScreenScan from "./screens/ScreenScan";
 
 function App() {
-  return (
-    <div className="App">
-      <ScreenScan />
-    </div>
-  );
+  return <ScreenScan />;
 }
 
 export default App;

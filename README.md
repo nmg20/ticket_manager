@@ -1,122 +1,63 @@
-# Ticket Manager
+# Analizador de tickets
 
-## Descripción del proyecto
+Proyecto en desarrollo que combina un **frontend en React con TailwindCSS** y un futuro **backend en FastAPI**.  
+El objetivo es construir un sistema que permita visualizar artículos en una interfaz limpia y modular, abrir un modal para asignar perfiles a cada artículo y gestionar tanto artículos como perfiles con persistencia de datos desde el backend.
 
-`Ticket Manager` es un sistema frontend en React que permite visualizar artículos de un supermercado, gestionar perfiles de usuarios y asignarlos a cada artículo mediante un modal interactivo. El proyecto está construido con:
+---
 
-- React + TypeScript
-- Tailwind CSS para estilos
-- Vite como herramienta de desarrollo
+## Estado actual
 
-Actualmente el proyecto permite:
+### Frontend
+- Proyecto creado con **Vite + React + TypeScript**.
+- Integración de **TailwindCSS** para estilos.
+- Componentes principales:
+  - **ArticleItem**: tarjeta rectangular que representa un artículo.
+  - **ArticleItemList**: lista de artículos en formato grid.
+  - **ArticleModal**: modal para asignar perfiles a artículos.
+- Pantalla principal:
+  - **ScreenScan**: muestra artículos, fecha, título y cálculo del total.
+- Modal funcional:
+  - Permite seleccionar perfiles asociados a un artículo.
+  - La selección se resetea al cambiar de artículo.
+  - Botones de confirmación y cierre.
 
-- Mostrar un listado de artículos con nombre y precio.
-- Abrir un modal al clicar sobre un artículo.
-- Seleccionar perfiles de usuario para asignarlos al artículo.
-- Reseteo automático de la selección de perfiles por cada artículo.
-- Visualización del total de los artículos seleccionados.
-- Mantener la estética inspirada en el diseño de Figma, con bordes redondeados y colores definidos.
+### Backend
+- Aún no implementado.
+- Planificado con **FastAPI** (Python).
+- Se espera incluir persistencia de datos con **SQLite** (fase inicial) y más adelante migración a **PostgreSQL**.
+- Definición de modelos `Article`, `Profile` y `Assignment`.
+
+---
 
 ## Estructura del proyecto
 
-```
-ticket_manager/
-├─ frontend/
-│  ├─ src/
-│  │  ├─ components/
-│  │  │  ├─ ArticleItem.tsx
-│  │  │  ├─ ArticleItemList.tsx
-│  │  │  └─ ArticleModal.tsx
-│  │  ├─ screens/
-│  │  │  └─ ScreenScan.tsx
-│  │  ├─ types.ts
-│  │  ├─ App.tsx
-│  │  └─ main.tsx
-│  ├─ index.css
-│  └─ vite.config.ts
-├─ package.json
-├─ tailwind.config.js
-└─ postcss.config.js
-```
+/frontend -> Aplicación en React + TailwindCSS
+/backend -> API en FastAPI (pendiente de desarrollo)
 
-## Funcionalidades implementadas
+---
 
-1. **Pantalla principal**
-   - Título, fecha y total visibles.
-   - Lista de artículos en un contenedor con bordes redondeados y colores.
-   
-2. **Artículos**
-   - Cada artículo se muestra como un rectángulo con nombre y precio.
-   - Al hacer click, se abre un modal para asignar perfiles.
+## Próximos pasos
 
-3. **Modal de asignación**
-   - Fondo semi-transparente para resaltar el modal.
-   - Lista de perfiles que se pueden seleccionar o deseleccionar.
-   - Botón de cerrar y botón de confirmar selección.
-   - Reseteo de perfiles seleccionados por cada artículo.
+1. Completar el diseño del frontend:
+   - Añadir animaciones y estética más fiel al prototipo de Figma.
+   - Gestionar historial de asignaciones.
+   - Mejorar usabilidad y experiencia de usuario.
 
-## Tecnologías y dependencias
+2. Iniciar el backend con FastAPI:
+   - Definir modelos de base de datos con **SQLAlchemy**.
+   - Exponer endpoints REST para CRUD de artículos y perfiles.
+   - Implementar sistema de asignaciones persistente.
 
-- **React 18 + TypeScript**
-- **Tailwind CSS** (con PostCSS)
-- **Vite** como bundler
-- Uso de `useState` para manejar la apertura de modal y selección de perfiles.
+3. Conectar el frontend con el backend mediante API REST:
+   - Reemplazar el estado local en React por datos obtenidos del backend.
+   - Guardar y recuperar artículos, perfiles y asignaciones reales.
 
-## Cómo ejecutar el proyecto
+---
 
-1. Clonar el repositorio:
+## Visión a futuro
 
-```bash
-git clone https://github.com/nmg20/ticket_manager.git
-cd ticket_manager/frontend
-```
-
-2. Instalar dependencias:
-
-```bash
-npm install
-```
-
-3. Ejecutar el servidor de desarrollo:
-
-```bash
-npm run dev
-```
-
-4. Abrir la aplicación en el navegador:
-
-```
-http://localhost:5173/
-```
-
-## Próximos pasos / Backend
-
-Para comenzar la parte backend se recomienda:
-
-1. **Diseñar la API**
-   - Endpoints para obtener artículos y perfiles.
-   - Endpoints para asignar perfiles a artículos.
-   - Endpoints para calcular total o generar tickets.
-
-2. **Elegir tecnología**
-   - Node.js + Express o FastAPI (Python) para prototipado rápido.
-   - Base de datos: SQLite para pruebas iniciales, PostgreSQL o MySQL para producción.
-
-3. **Conectar frontend con backend**
-   - Usar `fetch` o `axios` desde React para consumir la API.
-   - Reemplazar los datos estáticos actuales (`articles` y `profiles`) por datos provenientes de la API.
-
-4. **Persistencia de datos**
-   - Guardar las asignaciones de perfiles por artículo en la base de datos.
-   - Gestionar actualizaciones y eliminaciones.
-
-5. **Autenticación y roles (opcional)**
-   - Si se quiere un entorno multiusuario, añadir login y control de permisos.
-
-6. **Integración futura**
-   - Añadir notificaciones o confirmaciones visuales.
-   - Mejorar la estética con animaciones CSS o librerías de UI como Framer Motion o Radix.
-
-## Conclusión
-
-Actualmente el proyecto es un frontend funcional que refleja el diseño de Figma y soporta la lógica básica de selección y asignación de perfiles a artículos. La siguiente etapa natural es implementar el backend para persistir datos, hacer la aplicación dinámica y preparar la base para un sistema completo de gestión de tickets y perfiles.
+El sistema busca evolucionar hacia una aplicación completa de gestión de supermercado con:
+- Escaneo y visualización de artículos.
+- Asignación de perfiles personalizados.
+- Persistencia de datos con API en FastAPI.
+- Posible expansión a módulos adicionales como gestión de inventario o reportes.

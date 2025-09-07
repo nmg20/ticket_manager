@@ -1,11 +1,9 @@
-# backend/app/main.py
-from flask import Flask, jsonify
+from fastapi import FastAPI
+from .db import init_db
 
-app = Flask(__name__)
+app = FastAPI(
+    title="TM",
+    version="0.1.0"
+)
 
-@app.route("/api/hello")
-def hello():
-    return jsonify(message="Hola desde Flask")
-
-if __name__ == "__main__":
-    app.run(debug=True)
+init_db()
